@@ -1,98 +1,178 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
-
-import { HelloWave } from '@/components/hello-wave';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { Link } from 'expo-router';
+import { View, Text, StyleSheet, ScrollView, Pressable, ImageBackground } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
 
 export default function HomeScreen() {
-  return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <Link href="/modal">
-          <Link.Trigger>
-            <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-          </Link.Trigger>
-          <Link.Preview />
-          <Link.Menu>
-            <Link.MenuAction title="Action" icon="cube" onPress={() => alert('Action pressed')} />
-            <Link.MenuAction
-              title="Share"
-              icon="square.and.arrow.up"
-              onPress={() => alert('Share pressed')}
-            />
-            <Link.Menu title="More" icon="ellipsis">
-              <Link.MenuAction
-                title="Delete"
-                icon="trash"
-                destructive
-                onPress={() => alert('Delete pressed')}
-              />
-            </Link.Menu>
-          </Link.Menu>
-        </Link>
+  const router = useRouter();
 
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+  return (
+    <ScrollView style={styles.container}>
+      
+      <View style={styles.topBar}>
+        <View style={styles.headerTop}>
+          <View style={{ width: 28 }} /> 
+          <Text style={styles.headerLogo}>ECOBITE FOODS</Text>
+          <Ionicons name="person-circle" size={28} color="#F4D03F" />
+        </View>
+      </View>
+
+  
+      <ImageBackground 
+        source={require('../../assets/images/descarga.jpg')} 
+        resizeMode="cover"
+      >
+        <View style={styles.overlay}>
+          <View style={styles.heroContent}>
+            <Text style={styles.heroTitle}>ECOBITE FOODS</Text>
+            <Text style={styles.heroSubtitle}>Transformando superfoods andinos en snacks saludables</Text>
+            
+            <Pressable style={styles.btnPrimary} onPress={() => router.push('/products')}>
+              <Text style={styles.btnPrimaryText}>Ver Productos →</Text>
+            </Pressable>
+            
+            <Pressable style={styles.btnSecondary} onPress={() => router.push('/info')}>
+              <Text style={styles.btnSecondaryText}>Conoce Más</Text>
+            </Pressable>
+          </View>
+        </View>
+      </ImageBackground>
+
+      <View style={styles.benefitsSection}>
+        <Text style={styles.benefitsTitle}>¿Por qué elegir ECOBITE?</Text>
+
+        <View style={styles.benefitItem}>
+          <Ionicons name="leaf-outline" size={32} color="#4CAF50" />
+          <View style={styles.benefitTextContainer}>
+            <Text style={styles.benefitItemTitle}>100% Natural</Text>
+            <Text style={styles.benefitItemDesc}>Ingredientes orgánicos sin aditivos artificiales</Text>
+          </View>
+        </View>
+
+        <View style={styles.benefitItem}>
+          <Ionicons name="ribbon-outline" size={32} color="#D2691E" />
+          <View style={styles.benefitTextContainer}>
+            <Text style={styles.benefitItemTitle}>Superfoods Andinos</Text>
+            <Text style={styles.benefitItemDesc}>Quinua, kiwicha y granos ancestrales ricos en nutrientes</Text>
+          </View>
+        </View>
+
+        <View style={styles.benefitItem}>
+          <Ionicons name="heart-outline" size={32} color="#D32F2F" />
+          <View style={styles.benefitTextContainer}>
+            <Text style={styles.benefitItemTitle}>Saludables y Deliciosos</Text>
+            <Text style={styles.benefitItemDesc}>Ideales para cuidar tu alimentación y la de tu familia</Text>
+          </View>
+        </View>
+      </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
+  container: {
+    flex: 1,
+    backgroundColor: '#FAF9F6', 
+  },
+ 
+  topBar: {
+    backgroundColor: '#388E3C', 
+    paddingTop: 50,
+    paddingBottom: 15,
+  },
+  headerTop: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+  },
+  headerLogo: {
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
+
+  heroBackground: {
+    width: '100%',
+  },
+ 
+  overlay: {
+    backgroundColor: 'rgba(27, 94, 32, 0.7)', 
+    paddingTop: 30,
+    paddingBottom: 40,
+    alignItems: 'center',
+  },
+  heroContent: {
+    paddingHorizontal: 20,
+    alignItems: 'center',
+    width: '100%',
+  },
+  heroTitle: {
+    fontSize: 32,
+    fontWeight: 'bold',
+    color: '#F4D03F', 
+    textAlign: 'center',
+    marginBottom: 10,
+  },
+  heroSubtitle: {
+    color: 'white',
+    textAlign: 'center',
+    fontSize: 14,
+    marginBottom: 30,
+    paddingHorizontal: 10,
+  },
+  btnPrimary: {
+    backgroundColor: '#D68910', 
+    paddingVertical: 12,
+    paddingHorizontal: 30,
+    borderRadius: 8,
+    width: '100%',
+    marginBottom: 15,
+  },
+  btnPrimaryText: {
+    color: 'white',
+    textAlign: 'center',
+    fontWeight: 'bold',
+  },
+  btnSecondary: {
+    backgroundColor: '#388E3C', 
+    paddingVertical: 12,
+    paddingHorizontal: 30,
+    borderRadius: 8,
+    width: '100%',
+  },
+  btnSecondaryText: {
+    color: 'white',
+    textAlign: 'center',
+    fontWeight: 'bold',
+  },
+  benefitsSection: {
+    padding: 20,
+    paddingTop: 30,
+  },
+  benefitsTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#1B5E20',
+    textAlign: 'center',
+    marginBottom: 30,
+  },
+  benefitItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
+    marginBottom: 25,
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
+  benefitTextContainer: {
+    marginLeft: 15,
+    flex: 1,
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+  benefitItemTitle: {
+    fontWeight: 'bold',
+    fontSize: 16,
+    color: '#000',
+    marginBottom: 2,
   },
+  benefitItemDesc: {
+    color: '#555',
+    fontSize: 13,
+  }
 });
