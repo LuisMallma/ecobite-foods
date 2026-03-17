@@ -8,19 +8,14 @@ import { database, auth } from '../../firebaseConfig';
 
 export default function CartScreen() {
   const router = useRouter();
-  // Traemos los datos y funciones de nuestro Contexto global
   const { cart, removeFromCart, clearCart } = useCart();
-
-  // Calculamos el total de la compra
   const total = cart.reduce((suma: number, item: any) => suma + (item.precio * item.cantidad), 0);
 
-  // FUNCIÓN PARA REGISTRAR EL PEDIDO EN FIREBASE (RF05)
   const registrarPedido = async () => {
     try {
-      // Referencia a un nuevo nodo "pedidos" en Firebase
+
       const pedidoRef = ref(database, 'pedidos');
       
-      // Enviamos el pedido a la nube
       await push(pedidoRef, {
         usuario: auth.currentUser?.email || 'Usuario Invitado',
         productos: cart.map((p: any) => ({ nombre: p.nombre, cantidad: p.cantidad, precio: p.precio })),
@@ -28,7 +23,6 @@ export default function CartScreen() {
         fecha: new Date().toISOString()
       });
 
-      // Mostramos éxito, limpiamos el carrito y regresamos al inicio
       Alert.alert("¡Pedido Exitoso! 🎉", "Tu pedido ha sido registrado correctamente.", [
         { 
           text: "Genial", 
@@ -43,7 +37,6 @@ export default function CartScreen() {
     }
   };
 
-  // DISEÑO SI EL CARRITO ESTÁ VACÍO
   if (cart.length === 0) {
     return (
       <View style={styles.container}>
@@ -62,7 +55,6 @@ export default function CartScreen() {
     );
   }
 
-  // DISEÑO SI EL CARRITO TIENE PRODUCTOS
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -90,7 +82,6 @@ export default function CartScreen() {
         )}
       />
 
-      {/* BARRA INFERIOR DE TOTAL Y BOTÓN REGISTRAR */}
       <View style={styles.footer}>
         <View style={styles.totalContainer}>
           <Text style={styles.totalLabel}>Total:</Text>
@@ -110,14 +101,12 @@ const styles = StyleSheet.create({
   header: { backgroundColor: '#388E3C', paddingTop: 50, paddingBottom: 20, alignItems: 'center' },
   headerTitle: { color: 'white', fontSize: 18, fontWeight: 'bold' },
   
-  // Estilos vacíos
   emptyContent: { flex: 1, justifyContent: 'center', alignItems: 'center', paddingBottom: 50 },
   emptyTitle: { fontSize: 22, fontWeight: 'bold', color: '#000', marginBottom: 5 },
   emptySubtitle: { fontSize: 14, color: '#555', marginBottom: 30 },
   btnVerProductos: { backgroundColor: '#407F43', paddingVertical: 12, paddingHorizontal: 30, borderRadius: 8, elevation: 2 },
   btnText: { color: 'white', fontWeight: 'bold', fontSize: 15 },
 
-  // Estilos con productos
   listContainer: { padding: 15 },
   cartItem: { flexDirection: 'row', backgroundColor: 'white', padding: 10, borderRadius: 10, marginBottom: 15, elevation: 2, alignItems: 'center' },
   itemImage: { width: 60, height: 60, borderRadius: 8, resizeMode: 'cover' },
@@ -127,7 +116,6 @@ const styles = StyleSheet.create({
   itemSubtotal: { fontSize: 13, fontWeight: 'bold', color: '#2E7D32', marginTop: 4 },
   btnDelete: { padding: 10 },
 
-  // Footer
   footer: { backgroundColor: 'white', padding: 20, borderTopWidth: 1, borderColor: '#eee', elevation: 10 },
   totalContainer: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 15 },
   totalLabel: { fontSize: 18, fontWeight: 'bold', color: '#555' },

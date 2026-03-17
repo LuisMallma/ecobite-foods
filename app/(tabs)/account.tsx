@@ -32,7 +32,7 @@ export default function LoginScreen() {
         ]);
       }
     } catch (error: any) {
-      // 2. TRADUCCIÓN DE ERRORES DE FIREBASE
+    
       let mensajeAmigable = "Ocurrió un error al iniciar sesión.";
 
       if (error.code === 'auth/invalid-email') {
@@ -45,7 +45,7 @@ export default function LoginScreen() {
         mensajeAmigable = "Usuario o contraseña errónea.";
       }
 
-      // Mostramos la alerta bonita
+
       Platform.OS === "web" 
         ? alert(mensajeAmigable) 
         : Alert.alert("Error de Acceso", mensajeAmigable);

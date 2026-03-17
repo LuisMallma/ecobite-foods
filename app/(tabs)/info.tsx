@@ -159,8 +159,8 @@ const styles = StyleSheet.create({
   blockText: {
     fontSize: 14,
     color: '#333',
-    lineHeight: 22, // Mejor lectura
-    textAlign: 'left', // Solución al error de espaciado en Android
+    lineHeight: 22,
+    textAlign: 'left', 
   },
   contactSection: {
     backgroundColor: '#334E35',
@@ -181,7 +181,7 @@ const styles = StyleSheet.create({
   },
   contactTextContainer: {
     marginLeft: 15,
-    flex: 1, // Evita que textos largos (como correos) empujen la pantalla
+    flex: 1, 
   },
   contactLabel: {
     color: 'white',

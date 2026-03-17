@@ -1,19 +1,18 @@
 import { Tabs } from 'expo-router';
 import React from 'react';
-import { Ionicons } from '@expo/vector-icons'; // Usaremos Ionicons para los iconos
+import { Ionicons } from '@expo/vector-icons'; 
 
-// 1. IMPORTAMOS EL PROVIDER DEL CARRITO
 import { CartProvider } from '../../cartContext';
 
 export default function TabLayout() {
   return (
-    // 2. ENVOLVEMOS TODA LA NAVEGACIÓN CON EL PROVIDER
+
     <CartProvider>
       <Tabs
         screenOptions={{
-          tabBarActiveTintColor: '#2E7D32', // Verde de Ecobite
+          tabBarActiveTintColor: '#2E7D32', 
           tabBarInactiveTintColor: '#888',
-          headerShown: false, // Oculta la cabecera por defecto
+          headerShown: false, 
           tabBarStyle: { height: 60, paddingBottom: 10, paddingTop: 5 },
         }}>
         
@@ -53,11 +52,19 @@ export default function TabLayout() {
           }}
         />
         
-        {/* PANTALLA DE REGISTRO OCULTA DEL MENÚ */}
+      
         <Tabs.Screen
           name="register"
           options={{
-            href: null, // Esto evita que aparezca el botón en la barra inferior
+            href: null, 
+          }}
+        />
+
+        <Tabs.Screen
+          name="chat"
+          options={{
+            title: 'Chat',
+            tabBarIcon: ({ color }) => <Ionicons name="chatbubbles-outline" size={24} color={color} />,
           }}
         />
       </Tabs>

@@ -6,7 +6,6 @@ import { database } from '../../firebaseConfig';
 import { useRouter } from 'expo-router';
 import { useCart } from '../../cartContext';
 
-// Definimos la estructura de nuestro producto
 interface Producto {
   id: string;
   nombre: string;
@@ -16,7 +15,6 @@ interface Producto {
   imagen: string; 
 }
 
-// DICCIONARIO DE IMÁGENES LOCALES
 const imagenesLocales: Record<string, any> = {
   'prod1': require('../../assets/images/prod1.png'), 
   'prod2': require('../../assets/images/prod2.png'),
@@ -32,7 +30,7 @@ export default function ProductsScreen() {
   const [cargando, setCargando] = useState(true);
   const [categoriaActiva, setCategoriaActiva] = useState('Todos');
   
-  // NUEVO: Estados para controlar la ventana de Detalles (RF04)
+
   const [modalVisible, setModalVisible] = useState(false);
   const [productoSeleccionado, setProductoSeleccionado] = useState<Producto | null>(null);
 
@@ -64,7 +62,6 @@ export default function ProductsScreen() {
     ? productos 
     : productos.filter(p => p.categoria === categoriaActiva);
 
-  // Función para abrir los detalles
   const abrirDetalles = (producto: Producto) => {
     setProductoSeleccionado(producto);
     setModalVisible(true);
@@ -75,7 +72,6 @@ export default function ProductsScreen() {
 
     return (
       <View style={styles.card}>
-        {/* NUEVO: Envolvemos la imagen y el título para que sean clickeables */}
         <Pressable onPress={() => abrirDetalles(item)}>
           <View style={styles.imageContainer}>
             <Image source={imagenSource} style={styles.image} />
@@ -90,7 +86,6 @@ export default function ProductsScreen() {
           </View>
         </Pressable>
 
-        {/* Botón de agregar separado para que no interfiera con abrir los detalles */}
         <View style={{ paddingHorizontal: 10, paddingBottom: 10 }}>
           <Pressable 
             style={styles.btnAgregar} 
@@ -148,17 +143,16 @@ export default function ProductsScreen() {
         />
       )}
 
-      {/* NUEVO: VENTANA EMERGENTE DE DETALLES DEL PRODUCTO (RF04) */}
       <Modal
         animationType="slide"
         transparent={true}
         visible={modalVisible}
-        onRequestClose={() => setModalVisible(false)} // Permite cerrar con el botón 'atrás' de Android
+        onRequestClose={() => setModalVisible(false)} 
       >
         <View style={styles.modalOverlay}>
           <View style={styles.modalContent}>
             
-            {/* Botón para cerrar */}
+         
             <Pressable style={styles.closeButton} onPress={() => setModalVisible(false)}>
               <Ionicons name="close-circle" size={36} color="#388E3C" />
             </Pressable>
@@ -185,7 +179,7 @@ export default function ProductsScreen() {
                   style={styles.btnAgregarModal} 
                   onPress={() => {
                     addToCart(productoSeleccionado, imagenesLocales[productoSeleccionado.id] || imagenesLocales['default']);
-                    setModalVisible(false); // Cerramos el modal
+                    setModalVisible(false); 
                     alert(`¡${productoSeleccionado.nombre} agregado al carrito!`);
                   }}
                 >
@@ -262,7 +256,6 @@ const styles = StyleSheet.create({
   },
   btnAgregarText: { color: 'white', fontWeight: 'bold', marginLeft: 5, fontSize: 12 },
 
-  // NUEVOS ESTILOS PARA EL MODAL DE DETALLES (RF04)
   modalOverlay: {
     flex: 1,
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
@@ -274,7 +267,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 30,
     padding: 20,
     alignItems: 'center',
-    height: '75%', // Ocupa el 75% de la pantalla
+    height: '75%', 
     elevation: 10,
   },
   closeButton: {
@@ -296,7 +289,7 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   modalTagText: {
-    color: '#334E35', // Verde oscuro militar
+    color: '#334E35', 
     fontWeight: 'bold',
     fontSize: 12,
   },
@@ -324,7 +317,7 @@ const styles = StyleSheet.create({
     lineHeight: 22,
   },
   btnAgregarModal: {
-    backgroundColor: '#D68910', // Tono Naranja/Marrón para resaltar
+    backgroundColor: '#D68910', 
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
