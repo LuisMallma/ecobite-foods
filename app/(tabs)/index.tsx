@@ -8,15 +8,6 @@ export default function HomeScreen() {
   return (
     <ScrollView style={styles.container}>
       
-      <View style={styles.topBar}>
-        <View style={styles.headerTop}>
-          <View style={{ width: 28 }} /> 
-          <Text style={styles.headerLogo}>ECOBITE FOODS</Text>
-          <Ionicons name="person-circle" size={28} color="#F4D03F" />
-        </View>
-      </View>
-
-  
       <ImageBackground 
         source={require('../../assets/images/descarga.jpg')} 
         resizeMode="cover"
@@ -74,23 +65,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#FAF9F6', 
   },
  
-  topBar: {
-    backgroundColor: '#388E3C', 
-    paddingTop: 50,
-    paddingBottom: 15,
-  },
-  headerTop: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingHorizontal: 20,
-  },
-  headerLogo: {
-    color: 'white',
-    fontWeight: 'bold',
-    fontSize: 16,
-  },
-
   heroBackground: {
     width: '100%',
   },

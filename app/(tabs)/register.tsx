@@ -54,7 +54,7 @@ export default function RegisterScreen() {
           <Text style={styles.btnText}>Registrarse</Text>
         </Pressable>
 
-        <Pressable onPress={() => router.back()} style={{ marginTop: 20, marginBottom: 40 }}>
+        <Pressable onPress={() => router.push('/login')} style={{ marginTop: 20, marginBottom: 40 }}>
           <Text style={styles.loginLink}>
             ¿Ya tienes una cuenta? <Text style={{ fontWeight: 'bold' }}>Inicia sesión aquí</Text>
           </Text>
